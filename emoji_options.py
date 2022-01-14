@@ -1,6 +1,8 @@
-import streamlit as st
-import requests
 import json
+from random import choice
+
+import requests
+import streamlit as st
 
 st.set_page_config(page_title= "Streamlit Emojis",page_icon="random")
 
@@ -30,6 +32,7 @@ with st.sidebar:
 
     emoji = st.multiselect("Emojis", data.values())
 
+
 col1,col2 = st.columns(2)
 with col1:
     st.subheader("Emoji name:")
@@ -44,6 +47,14 @@ with col2:
         for i in emoji:
             key = get_key(i,data)
             st.write("{b} = `:{a}:`".format(a=key,b=i))
+
+st.subheader("Random:")
+
+random_label = choice(list(data.keys()))
+st.button("Re-pick")
+
+emoji = data[random_label]
+st.write(f"`:{random_label}:` = {emoji}")
 
 #data = json.loads("https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json")
 check = st.sidebar.checkbox("Show all options")
